@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block body %}
+ <body>
+  <h2>Movies</h2>
+		<ul class=entries>
+		{% for entry in movies %}
+			<form method="POST" action="/gotomovie">
+				<p>{{entry.movie_name}}
+					<input type="hidden" name=movie value="{{entry.movie_name}}"/>
+					<input type="submit" value="check"/>
+				</p>
+			</form>
+		{% else %}
+			<li><em>No movies found</em>
+		{% endfor %}
+		<endfor>
+		</ul>
+
+	<h2>Theatres</h2>
+		<ul class=entries>
+		{% for entry in theatres %}
+			<form method="POST" action="/gototheatre">
+				<p>{{entry.theatre_name}}
+					<input type="hidden" name=theatre value="{{entry.theatre_name}}"/>
+					<input type="submit" value="check"/>
+				</p>
+			</form>
+		{% else %}
+			<li><em>No theatres found</em>
+		{% endfor %}
+		<endfor>
+		</ul>
+	
+	<h2>Search</h2>
+		<script language="javascript" type="text/javascript" 
+						src="{{url_for('static',filename='datepicker/WdatePicker.js')}}"></script>
+		<form method="POST" action="/search">
+			<p>Movie:<input type="text" name="movie_name"></p>
+			<p>Theatre:<input type="text" name="theatre_name"></p>
+			<p>Date:<input id="d1" name="date" type="text"/>
+					<img onclick="WdatePicker({el:'d1'})" 
+							src="{{url_for('static', filename='datepicker/skin/datePicker.gif')}}" 	
+							width="16" 	height="22" align="absmiddle"/>
+			</p>
+			<p><input type="submit" value="search"></p>
+		</form>
+
+
+</body>
+{% endblock %}

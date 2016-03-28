@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block body %}
+ <body>
+  <h1>Movies</h1>
+		<ul class=movieinfo>
+		{% for entry in info %}
+			<li><h2>{{entry.mid}}</h2>{{entry.price}}
+		{% else %}
+			<li><em>No movie found</em>
+		{% endfor %}
+		<endfor>
+
+<p><a href="/">back</a></p>
+
+</body>
+{% endblock %}

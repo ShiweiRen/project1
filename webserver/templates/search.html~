@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block body %}
+<body>
+
+	<h2>Search</h2>
+		<script language="javascript" type="text/javascript" src="{{url_for('static',filename='datepicker/WdatePicker.js')}}"></script>
+		<form method="POST" action="/search">
+			<p>Movie:<input type="text" name="movie_name"></p>
+			<p>Theatre:<input type="text" name="theatre_name"></p>
+			<p>Date:<input id="d1" name="date" type="text"/>
+					<img onclick="WdatePicker({el:'d1'})" src="{{url_for('static', filename='datepicker/skin/datePicker.gif')}}" width="16" 	height="22" align="absmiddle"/></p>
+			<p><input type="submit" value="search"></p>
+		</form>
+
+  <h2>Search Result</h2>
+		<ul class=entries>
+		<table border="1">
+			<tr>
+				<th>Movie Name</th>
+				<th>Theatre Name</th>
+				<th>Hall No.</th>
+				<th>Start Time</th>
+				<th>Tickets Rest</th>
+				<th>Price</th>
+			</tr>
+		{% for entry in info %}
+			<tr>
+				<td>{{entry.movie_name}}</td>
+				<td>{{entry.theatre_name}}</td>
+				<td>{{entry.hid}}</td>
+				<td>{{entry.start_time}}</td>
+				<td>{{entry.available_seats}}</td>
+				<td>{{entry.price}}</td>
+				<td>
+					<form method="POST" action="/order">
+					<input type="hidden" name="movie_name" value="{{entry.movie_name}}">
+					<input type="hidden" name="theatre_name" value="{{entry.theatre_name}}">
+					<input type="hidden" name="hid" value="{{entry.hid}}">
+					<input type="hidden" name="start_time" value="{{entry.start_time}}">
+					<input type="hidden" name="end_time" value="{{entry.end_time}}">
+					<input type="hidden" name="available_seats" value="{{entry.available_seats}}">
+					<input type="hidden" name="price" value="{{entry.price}}">
+					<input type="submit" value="order">
+					</form>
+				</td>
+			</tr>		
+		{% else %}
+			<li><em>No movie found</em>
+		{% endfor %}
+		</table>
+
+
+<p><a href="/">back</a></p>
+</body>
+{% endblock %}

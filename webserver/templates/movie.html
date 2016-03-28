@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+{% block body %}
+<body>
+  <h2>{{session.movie}}</h2>
+		<ul class=entries>
+		<table border="1">
+			<tr>
+				<th>Theatre Name</th>
+				<th>Hall No.</th>
+				<th>Start Time</th>
+				<th>Tickets Rest</th>
+				<th>Price</th>
+				<th>Order</th>
+			</tr>
+		{% for entry in info %}
+			<tr>
+				<td>{{entry.theatre_name}}</td>
+				<td>{{entry.hid}}</td>
+				<td>{{entry.start_time}}</td>
+				<td>{{entry.available_seats}}</td>
+				<td>{{entry.price}}</td>
+       	<td>
+					<form method="POST" action="/order">
+					<input type="hidden" name="movie_name" value="{{session.movie}}">
+					<input type="hidden" name="theatre_name" value="{{entry.theatre_name}}">
+					<input type="hidden" name="hid" value="{{entry.hid}}">
+					<input type="hidden" name="start_time" value="{{entry.start_time}}">
+					<input type="hidden" name="end_time" value="{{entry.end_time}}">
+					<input type="hidden" name="available_seats" value="{{entry.available_seats}}">
+					<input type="hidden" name="price" value="{{entry.price}}">
+					<input type="submit" value="order">
+					</form>
+				</td>
+			</tr>		
+		{% else %}
+			<li><em>No movie found</em>
+		{% endfor %}
+		<endfor>
+
+<p><a href="/backfrommovie">back</a></p>
+</body>
+{% endblock %}

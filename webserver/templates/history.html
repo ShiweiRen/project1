@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block body %}
+<body>
+<h1>Order History</h1>
+    <ul class=entries>
+    <table border="1">
+      <tr>
+        <th>User ID</th>
+        <th>Order ID</th>
+        <th>Movie</th>
+        <th>Order Time</th>
+        <th>Start Time</th>
+        <th>Theatre</th>
+        <th>Hall</th>
+        <th>Delete</th>
+      </tr>
+    {% for entry in info %}
+      <tr>
+        <td>{{entry.uid}}</td>
+        <td>{{entry.oid}}</td>
+        <td>{{entry.movie_name}}</td>
+        <td>{{entry.order_time}}</td>
+        <td>{{entry.start_time}}</td>
+        <td>{{entry.theatre_name}}</td>
+        <td>{{entry.hid}}</td>
+        <td>
+			<form method="POST" action="/delete">
+			<input type="hidden" name="oid" value="{{entry.oid}}">
+			<input type="submit" value="DELETE">
+			</form>
+		</td>
+      </tr>   
+    {% else %}
+      <li><em>No movie found</em>
+    {% endfor %}
+    <endfor>
+</body>
+{% endblock %}

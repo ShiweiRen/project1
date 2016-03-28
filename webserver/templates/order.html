@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block body %}
+<body>
+<h1>{{session.movie}}</h1>
+    <ul class=entries>
+    <table border="1">
+      <tr>
+        <th>Theatre Name</th>
+        <th>Hall No.</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Tickets Rest</th>
+        <th>Price</th>
+      </tr>
+    {% for entry in info %}
+      <tr>
+        <td>{{entry.theatre_name}}</td>
+        <td>{{entry.hid}}</td>
+        <td>{{entry.start_time}}</td>
+        <td>{{entry.end_time}}</td>
+        <td>{{entry.available_seats}}</td>
+        <td>{{entry.price}}</td>
+      </tr>   
+    {% else %}
+      <li><em>No movie found</em>
+    {% endfor %}
+    <endfor>
+</body>
+{% endblock %}
