@@ -233,6 +233,9 @@ def order():
     start_time = request.form["start_time"]
     end_time = request.form["end_time"]
     available_seats = request.form["available_seats"]
+    if available_seats ==0:
+        return redirect('/')
+    available_seats = int(available_seats)-1
     price = request.form["price"]
     info = [dict(movie_name=movie_name, theatre_name=theatre_name, hid=hid, start_time=start_time, end_time=end_time, available_seats=available_seats, price=price)]
     email = session["username"]
@@ -246,6 +249,7 @@ def order():
     cursor = g.conn.execute("SELECT last_value FROM tid_seq")
     tid = (cursor.fetchall())[0][0]
     g.conn.execute("INSERT INTO order_includes VALUES (%s, %s)" % (oid, tid))
+    g.conn.execute("update play_at set available_seats = available_seats - 1 where mid=%s and start_time='%s' and hid=%s and thid=%s"%(mid,start_time,hid,thid))
     return render_template("order.html",info=info)
 
 @app.route('/delete',methods=['POST','GET'])
