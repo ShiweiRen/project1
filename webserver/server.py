@@ -320,6 +320,8 @@ def signup():
       error = 'That email has already been used'
     elif request.form['password']!=request.form['password2']:
       error = 'Password do not match.'
+    elif len(request.form['credit_card_no']) != 16:
+        error = 'Invalid credit card number!'
     else:
       cur = g.conn.execute("insert into users(email,credit_card_no,password) values('%s','%s','%s')"%(request.form['email'],request.form['credit_card_no'],request.form['password']))
       session['logged_in'] = True
